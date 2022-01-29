@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Alerts from './components/layout/Alerts';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import ContactState from './context/Contact/ContactState';
 import AuthState from './context/Auth/AuthState';
@@ -29,7 +30,12 @@ const App = () => {
 
         <Alerts></Alerts>
         <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <PrivateRoute>
+              <Home />
+          </PrivateRoute>
+          
+          } />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
