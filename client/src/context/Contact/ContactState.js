@@ -5,6 +5,8 @@ import ContactContext from './ContactContext'
 import ContactReducer from './ContactReducer'
 import {
     ADD_CONTACT,
+    CLEAR_CONTACTS,
+    GET_CONTACTS,
     DELETE_CONTACT,
     SET_CURRENT,
     CLEAR_CURRENT,
@@ -23,6 +25,20 @@ const ContactState = props => {
     }
 
     const [state, dispatch] = useReducer(ContactReducer, initialState);
+
+    // Get Contacts
+    const getContacts = async () => {
+        //contact.id = uuidv4();
+
+        try {
+            const res = await axios.post('/api/contacts');
+            dispatch({ type: GET_CONTACTS, payload: res.data });
+
+        } catch (err) {
+            dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+        }
+        
+    }
 
     // Add Contact
     const addContact = async contact => {
