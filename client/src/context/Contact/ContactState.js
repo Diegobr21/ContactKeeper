@@ -18,7 +18,7 @@ import {
 
 const ContactState = props => {
     const initialState = {
-        contacts: [],
+        contacts: null,
         current: null,
         filtered: null,
         error: null
@@ -31,7 +31,7 @@ const ContactState = props => {
         //contact.id = uuidv4();
 
         try {
-            const res = await axios.post('/api/contacts');
+            const res = await axios.get('/api/contacts');
             dispatch({ type: GET_CONTACTS, payload: res.data });
 
         } catch (err) {
@@ -63,6 +63,11 @@ const ContactState = props => {
     // Delete Contact
     const deleteContact = id => {
         dispatch({ type: DELETE_CONTACT, payload: id });
+    }
+
+    // Clear Contacts
+    const clearContacts = id => {
+        dispatch({ type: CLEAR_CONTACTS });
     }
 
     // Set current contact
@@ -103,7 +108,9 @@ const ContactState = props => {
                 clearCurrent,
                 updateContact,
                 filterContacts,
-                clearFilter
+                clearFilter,
+                getContacts,
+                clearContacts
             }}>
             {props.children}
         </ContactContext.Provider>
